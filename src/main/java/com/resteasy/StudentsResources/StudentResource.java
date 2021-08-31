@@ -15,6 +15,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.Form;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.resteasy.plugins.providers.html.View;
 
@@ -71,7 +72,7 @@ public class StudentResource {
 	@POST
 	@Path("/ActionForm")
 	//@Produces(MediaType.JSON_UTF_8)
-	public void PostMethod(LoginModel login) {
+	public void PostMethod(@Form LoginModel login) {
 		System.out.println("hi this is post");
 		String output = login.toString();
 		System.out.println("login name is "+login.getFirst_name());
