@@ -1,29 +1,21 @@
 package com.resteasy.StudentsResources;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
 
-import org.jboss.resteasy.annotations.Form;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import javax.ws.rs.core.Context;
+
 import org.jboss.resteasy.plugins.providers.html.View;
 
-import com.google.common.net.MediaType;
 import com.google.inject.Inject;
-import com.resteasy.StudentModel.LoginModel;
-import com.resteasy.StudentModel.Student;
 import com.resteasy.StudentsServices.StudentService;
+import com.resteasy.loginService.UserService;
 
 /*import org.jboss.resteasy.plugins.providers.html.View;
 
@@ -34,6 +26,9 @@ import com.resteasy.StudentsServices.StudentService;
 public class StudentResource {
 	@Inject
 	StudentService ss;
+
+	@Inject
+	UserService user;
 
 	/*
 	 * 
@@ -71,11 +66,73 @@ public class StudentResource {
 	 */
 	@POST
 	@Path("/ActionForm")
-	//@Produces(MediaType.JSON_UTF_8)
-	public void PostMethod(@Form LoginModel login) {
-		System.out.println("hi this is post");
-		String output = login.toString();
-		System.out.println("login name is "+login.getFirst_name());
-		//return ;
+	// @Produces(MediaType.JSON_UTF_8)
+	public void postlogin(@Context HttpServletResponse response, @Context HttpServletRequest request)
+			throws IOException {
+
+		String first_name = request.getParameter("first_name");
+		String last_name = request.getParameter("last_name");
+		String email_addr = request.getParameter("email_addr");
+		System.out.println(
+				"hi" + "first name is " + first_name + " last name is" + last_name + "email addr is" + email_addr);
+		boolean status = user.authenticate(first_name, last_name);
+		if (status) {
+			response.sendRedirect(request.getContextPath() + "/student/controller");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/student");
+		}
 	}
+
+	@GET
+	@Path("/controller")
+	public View controlStudent() {
+		System.out.println("hi this is controller");
+		return new View("/Controller.jsp");
+	}
+
+	@GET
+	@Path("/create")
+	public View createStudent() {
+		System.out.println("hi this is create");
+		return new View("/addStudent.jsp");
+	}
+
+	@GET
+	@Path("/read")
+	public View viewStudent() {
+		System.out.println("hi this is view");
+		return new View("/viewStudent.jsp");
+	}
+
+	@GET
+	@Path("/update")
+	public View updateStudent() {
+		System.out.println("hi this is update");
+		return new View("/updateStudent.jsp");
+	}
+
+	@GET
+	@Path("/delete")
+	public View deleteStudent() {
+		System.out.println("hi this is delete");
+		return new View("/deleteStudent.jsp");
+	}
+
+	@POST
+	@Path("/addStd")
+	// @Produces(MediaType.JSON_UTF_8)
+	public void addStd(@Context HttpServletResponse response, @Context HttpServletRequest request) throws IOException {
+		
+		/*
+		 * String first_name = request.getParameter("first_name"); String last_name =
+		 * request.getParameter("last_name"); String email_addr =
+		 * request.getParameter("email_addr"); System.out.println( "hi" +
+		 * "first name is " + first_name + " last name is" + last_name + "email addr is"
+		 * + email_addr); boolean status = user.authenticate(first_name, last_name); if
+		 * (status) { response.sendRedirect(request.getContextPath() +
+		 * "/student/controller"); } else {
+		 * response.sendRedirect(request.getContextPath() + "/student"); }
+		 */
+	}
+
 }
