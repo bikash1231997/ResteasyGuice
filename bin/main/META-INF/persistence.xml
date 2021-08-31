@@ -7,15 +7,13 @@
    
    <persistence-unit name="MY_JPA" transaction-type="RESOURCE_LOCAL">
 
-      <class>com.resteasy</class>
+      <class>resteasy</class>
       
       <properties>
          <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/axelordb"/>
          <property name="javax.persistence.jdbc.user" value="axelor"/>
          <property name="javax.persistence.jdbc.password" value="axelor"/>
          <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-         <property name="eclipselink.logging.level" value="FINE"/>
-         <property name="eclipselink.ddl-generation" value="create-tables"/>
          
          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
          <property name="hibernate.show_sql" value="true"/>

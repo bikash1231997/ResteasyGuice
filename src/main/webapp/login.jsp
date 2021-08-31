@@ -7,11 +7,13 @@
 <title>Login Form</title>
 </head>
 <body>
-<form action = "ActionForm" method = "POST">
+<form action = "student/ActionForm" method = "POST">
          First Name: <input type = "text" name = "first_name">
          <br />
          Last Name: <input type = "text" name = "last_name" />
-         <input type = "submit" value = "Submit" />
+         <br />
+         Email : <input type = "email" name = "email_addr" />
+         <input type = "submit" value = "Login" />
       </form>
 </body>
 </html>

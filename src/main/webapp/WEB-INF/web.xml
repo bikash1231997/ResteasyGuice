@@ -8,11 +8,6 @@
 	<listener>
 		<listener-class>com.resteasy.GuiceConfiguration.GuiceConfig</listener-class>
 	</listener>
-<!-- 	<listener>
-      <listener-class>
-         org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
-      </listener-class>
-    </listener> -->
 
 	<!-- <filter>
 		<filter-name>guiceFilter</filter-name>

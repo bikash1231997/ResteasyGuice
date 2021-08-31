@@ -18,22 +18,28 @@
   
   
   dependencies {
-	  implementation 'org.hibernate:hibernate-core:5.3.2.Final'
-	  implementation 'org.postgresql:postgresql:42.2.2'
-  
-	  implementation 'com.google.inject:guice:4.2.0'
-	  implementation 'com.google.inject.extensions:guice-servlet:4.2.0'
-	  implementation 'com.google.inject.extensions:guice-persist:4.2.0'
+	  implementation 'org.hibernate:hibernate-core:5.5.7.Final'
 	  
-	  implementation 'org.jboss.resteasy:resteasy-jaxrs:3.6.0.Final'
-	  implementation 'org.jboss.resteasy:resteasy-guice:3.6.0.Final'
-  
-	  implementation 'javax.servlet:javax.servlet-api:3.1.0'
+	  implementation 'org.postgresql:postgresql:42.2.23'
+	  
+	  implementation 'com.google.inject:guice:5.0.1'
+	  
+	  implementation 'com.google.inject.extensions:guice-servlet:5.0.1'
+		  
+	  implementation 'com.google.inject.extensions:guice-persist:5.0.1'
+	  
+	 // implementation 'org.jboss.resteasy:resteasy-jaxrs:3.15.1.Final'
+	  
+	  implementation 'org.jboss.resteasy:resteasy-guice:4.7.1.Final'
+	  	
+	  implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	  
 	  implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+	  implementation 'org.jboss.resteasy:resteasy-jaxb-provider:4.7.1.Final'
 	  
-	  implementation 'org.jboss.resteasy:resteasy-jaxb-provider:3.6.0.Final'
-	  implementation 'org.jboss.resteasy:resteasy-html:3.6.0.Final' 
-	  
+	  implementation 'org.jboss.resteasy:resteasy-html:4.7.1.Final' 
+	 
 	  
   }
  
