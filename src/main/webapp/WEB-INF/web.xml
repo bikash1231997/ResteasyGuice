@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<listener>
+		<listener-class>com.resteasy.GuiceConfiguration.GuiceConfig</listener-class>
+	</listener>
+<!-- 	<listener>
+      <listener-class>
+         org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
+      </listener-class>
+    </listener> -->
+
+	<!-- <filter>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>MyServlet</servlet-name>
+		<servlet-class>com.guiceservlet2.demo.MyServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MyServlet</servlet-name>
+		<url-pattern>/MyServlet</url-pattern>
+	</servlet-mapping> -->
+
+
+	<filter>
+		<filter-name>RestEasy</filter-name>
+		<filter-class>org.jboss.resteasy.plugins.server.servlet.FilterDispatcher
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>RestEasy</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>
