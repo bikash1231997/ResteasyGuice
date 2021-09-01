@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import org.jboss.resteasy.plugins.providers.html.View;
 
 import com.google.inject.Inject;
+import com.resteasy.StudentModel.Student;
 import com.resteasy.StudentsServices.StudentService;
 import com.resteasy.loginService.UserService;
 
@@ -120,19 +121,25 @@ public class StudentResource {
 
 	@POST
 	@Path("/addStd")
-	// @Produces(MediaType.JSON_UTF_8)
 	public void addStd(@Context HttpServletResponse response, @Context HttpServletRequest request) throws IOException {
+		System.out.println("hi this is add student");
+		Student std = new Student();
+		String fname =request.getParameter("FirstName");
+		String lname =request.getParameter("LastName");
+		String mobile =request.getParameter("MobileNumber");
+		String email =request.getParameter("EmailID");
+		String gender =request.getParameter("Gender");
+		String course =request.getParameter("Course");
 		
-		/*
-		 * String first_name = request.getParameter("first_name"); String last_name =
-		 * request.getParameter("last_name"); String email_addr =
-		 * request.getParameter("email_addr"); System.out.println( "hi" +
-		 * "first name is " + first_name + " last name is" + last_name + "email addr is"
-		 * + email_addr); boolean status = user.authenticate(first_name, last_name); if
-		 * (status) { response.sendRedirect(request.getContextPath() +
-		 * "/student/controller"); } else {
-		 * response.sendRedirect(request.getContextPath() + "/student"); }
-		 */
+		std.setFname(fname);
+		std.setLname(lname);
+		std.setEmail(email);
+		std.setMobileNo(mobile);
+		std.setGender(gender);
+		std.setCourse(course);
+		
+		ss.addStudent(std);
+		response.sendRedirect(request.getContextPath() + "/student/read");
 	}
 
 }
