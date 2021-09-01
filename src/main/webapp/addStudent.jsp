@@ -63,7 +63,8 @@ input[type=submit], input[type=reset] {
 <body>
 	<h2>Student Regisdivation Form Using HTML</h2>
 	<div id="sdiv_add" align="center">
-		<form action="addStd">
+		<%-- <form action="addStd" ACTION="<%=request.getContextPath()%>/contact/addStd" METHOD="POST"> --%>
+		<FORM ACTION="<%=request.getContextPath()%>/student/addStd" METHOD="POST">
 			<div>
 				<div>First Name</div>
 				<div>

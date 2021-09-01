@@ -1,6 +1,8 @@
 package com.resteasy.StudentsResources;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import javax.ws.rs.Path;
 
 import javax.ws.rs.core.Context;
 
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.resteasy.plugins.providers.html.View;
 
 import com.google.inject.Inject;
@@ -102,21 +105,57 @@ public class StudentResource {
 	@Path("/read")
 	public View viewStudent() {
 		System.out.println("hi this is view");
-		return new View("/viewStudent.jsp");
+		List<Student> std = ss.readStudents();
+
+		for (Student s : std) {
+			System.out.println(
+					s.getFname() + " " + s.getLname() + " " + s.getCourse() + " " + s.getEmail() + " " + s.getGender());
+
+		}
+		return new View("/viewStudent.jsp", std, "student");
 	}
 
-	@GET
+	@POST
 	@Path("/update")
-	public View updateStudent() {
-		System.out.println("hi this is update");
-		return new View("/updateStudent.jsp");
+	public void updateStudent(@Context HttpServletResponse response, @Context HttpServletRequest request)
+			throws IOException {
+		
+		System.out.println("hi this is update complete ");
+		
+		Student std = new Student();
+
+		std.setFname(request.getParameter("FirstName"));
+		std.setLname(request.getParameter("LastName"));
+		std.setEmail(request.getParameter("EmailID"));
+		std.setMobileNo(request.getParameter("MobileNumber"));
+		std.setGender(request.getParameter("Gender"));
+		std.setCourse(request.getParameter("Course"));
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		ss.updateStudent(std, id);
+		
+		response.sendRedirect(request.getContextPath() + "/student/read");
 	}
 
 	@GET
-	@Path("/delete")
-	public View deleteStudent() {
+	@Path("/read/{id}")
+	public View viewStudentById(@Context HttpServletResponse response, @Context HttpServletRequest request,
+			@PathParam("id") Integer id) {
+		System.out.println("hi this is update std" + id);
+		Student s = ss.updateStudentById(id);
+		System.out.println(
+				s.getFname() + " " + s.getLname() + " " + s.getCourse() + " " + s.getEmail() + " " + s.getGender());
+		return new View("/viewbyid.jsp", s, "studentobj");
+	}
+
+	@GET
+	@Path("/delete/{id}")
+	public void deleteStudent(@PathParam("id") Integer id, @Context HttpServletResponse response,
+			@Context HttpServletRequest request) throws IOException {
 		System.out.println("hi this is delete");
-		return new View("/deleteStudent.jsp");
+		ss.deleteStudentById(id);
+		response.sendRedirect(request.getContextPath() + "/student/read");
 	}
 
 	@POST
@@ -124,20 +163,20 @@ public class StudentResource {
 	public void addStd(@Context HttpServletResponse response, @Context HttpServletRequest request) throws IOException {
 		System.out.println("hi this is add student");
 		Student std = new Student();
-		String fname =request.getParameter("FirstName");
-		String lname =request.getParameter("LastName");
-		String mobile =request.getParameter("MobileNumber");
-		String email =request.getParameter("EmailID");
-		String gender =request.getParameter("Gender");
-		String course =request.getParameter("Course");
-		
+		String fname = request.getParameter("FirstName");
+		String lname = request.getParameter("LastName");
+		String mobile = request.getParameter("MobileNumber");
+		String email = request.getParameter("EmailID");
+		String gender = request.getParameter("Gender");
+		String course = request.getParameter("Course");
+
 		std.setFname(fname);
 		std.setLname(lname);
 		std.setEmail(email);
 		std.setMobileNo(mobile);
 		std.setGender(gender);
 		std.setCourse(course);
-		
+
 		ss.addStudent(std);
 		response.sendRedirect(request.getContextPath() + "/student/read");
 	}
